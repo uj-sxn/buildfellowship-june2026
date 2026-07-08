@@ -2,23 +2,19 @@
 {
     public partial class MainPage : ContentPage
     {
-        int count = 0;
-
         public MainPage()
         {
             InitializeComponent();
         }
 
-        private void OnCounterClicked(object? sender, EventArgs e)
+        private void OnGoalTapped(object? sender, TappedEventArgs e)
         {
-            count++;
+            Console.WriteLine("navigate to its Detail Page");
+        }
 
-            if (count == 1)
-                CounterBtn.Text = $"Clicked {count} time";
-            else
-                CounterBtn.Text = $"Clicked {count} times";
-
-            SemanticScreenReader.Announce(CounterBtn.Text);
+        private void OnAddNewGoalClicked(object? sender, EventArgs e)
+        {
+            Console.WriteLine("navigate to Add Item Page");
         }
     }
 }
