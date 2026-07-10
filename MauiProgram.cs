@@ -1,4 +1,6 @@
 ﻿using Microsoft.Extensions.Logging;
+using MauiApp1.Views;
+using MauiApp1.ViewModels;
 
 namespace MauiApp1
 {
@@ -16,8 +18,12 @@ namespace MauiApp1
                 });
 
 #if DEBUG
-    		builder.Logging.AddDebug();
+            builder.Logging.AddDebug();
 #endif
+
+            // Singleton - Global static, it creates at once
+            builder.Services.AddSingleton<MainPage>();
+            builder.Services.AddSingleton<MainViewModel>();
 
             return builder.Build();
         }

@@ -1,20 +1,18 @@
-﻿namespace MauiApp1
+﻿using MauiApp1.ViewModels;
+
+namespace MauiApp1
 {
     public partial class MainPage : ContentPage
     {
-        public MainPage()
+        public MainPage(MainViewModel viewModel)
         {
             InitializeComponent();
+            BindingContext = viewModel;
         }
 
         private void OnGoalTapped(object? sender, TappedEventArgs e)
         {
             Console.WriteLine("navigate to its Detail Page");
-        }
-
-        private void OnAddNewGoalClicked(object? sender, EventArgs e)
-        {
-            Console.WriteLine("navigate to Add Item Page");
         }
     }
 }

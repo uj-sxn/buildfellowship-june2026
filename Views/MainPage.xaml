@@ -2,7 +2,9 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:models="clr-namespace:MauiApp1.Models"
+             xmlns:viewmodel="clr-namespace:MauiApp1.ViewModels"
              x:Class="MauiApp1.MainPage"
+             x:DataType="viewmodel:MainViewModel"
              Title="All Goals"
              BackgroundColor="{StaticResource BackgroundColor}">
 
@@ -10,148 +12,81 @@
       RowSpacing="20"
       RowDefinitions="*,Auto">
 
-        <ScrollView Grid.Row="0">
-            <VerticalStackLayout
-              Spacing="10">
+        <CollectionView Grid.Row="0" ItemsSource="{Binding Goals}">
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="models:Goal">
+                    <Border HeightRequest="170" 
+                        StrokeShape="RoundRectangle 20"
+                        StrokeThickness="0"
+                        Margin="0,0,0,10"
+                        BackgroundColor="{StaticResource CardBackgroundColor}">
+                        <Border.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnGoalTapped" />
+                        </Border.GestureRecognizers>
 
-                <Border HeightRequest="170" 
-                    StrokeShape="RoundRectangle 20"
-                    StrokeThickness="0"
-                    BackgroundColor="{StaticResource CardBackgroundColor}">
-                    <Border.GestureRecognizers>
-                        <TapGestureRecognizer Tapped="OnGoalTapped" />
-                    </Border.GestureRecognizers>
+                        <Grid>
+                            <!-- Main content area -->
+                            <Grid Margin="20,16" 
+                                ColumnDefinitions="*,Auto" 
+                                ColumnSpacing="16">
 
-                    <Grid>
-                        <!-- Main content area -->
-                        <Grid Margin="20,16" 
-                            ColumnDefinitions="*,Auto" 
-                            ColumnSpacing="16">
+                                <!-- Content section -->
+                                <StackLayout Grid.Column="0" 
+                                   VerticalOptions="Center"
+                                   Spacing="4">
 
-                            <!-- Content section -->
-                            <StackLayout Grid.Column="0" 
-                               VerticalOptions="Center"
-                               Spacing="4">
+                                    <Label Text="{Binding Name}"
+                                       FontSize="22"
+                                       FontAttributes="Bold"
+                                       TextColor="{StaticResource PrimaryTextColor}"  />
 
-                                <Label Text="Read 20 Pages Per Day"
-                                   FontSize="22"
-                                   FontAttributes="Bold"
-                                   TextColor="{StaticResource PrimaryTextColor}"  />
+                                    <Label Text="{Binding TargetDate, StringFormat='{0:MMMM dd, yyyy}'}"
+                                       FontSize="14"
+                                       TextColor="{StaticResource PrimaryTextColor}"  />
 
-                                <Label Text="2026-06-12"
-                                   FontSize="14"
-                                   TextColor="{StaticResource PrimaryTextColor}"  />
+                                    <ProgressBar Progress="{Binding Progress}"
+                                         ProgressColor="{StaticResource OrangeGlow}"
+                                         Margin="0,20"/>
 
-                                <ProgressBar Progress="0.7"
-                                     ProgressColor="{StaticResource OrangeGlow}"
-                                     Margin="0,20"/>
-
-                                <Label Text="Small daily habits create extraordinary results."
-                                   FontSize="14"
-                                   TextColor="{StaticResource SecondaryTextColor}"
-                                   LineBreakMode="TailTruncation" />
+                                    <Label Text="{Binding Motivation}"
+                                       FontSize="14"
+                                       TextColor="{StaticResource SecondaryTextColor}"
+                                       LineBreakMode="TailTruncation" />
 
 
-                            </StackLayout>
+                                </StackLayout>
 
-                            <!-- Action section -->
-                            <StackLayout Grid.Column="1" 
-                                VerticalOptions="Start"
-                                HorizontalOptions="End"
-                                Spacing="8">
+                                <!-- Action section -->
+                                <StackLayout Grid.Column="1" 
+                                    VerticalOptions="Start"
+                                    HorizontalOptions="End"
+                                    Spacing="8">
 
-                                <Border 
-                                    BackgroundColor="{StaticResource OrangeLeafs}"
-                                    StrokeThickness="0"
-                                    StrokeShape="RoundRectangle 20">
+                                    <Border 
+                                        BackgroundColor="{StaticResource OrangeLeafs}"
+                                        StrokeThickness="0"
+                                        StrokeShape="RoundRectangle 20">
 
+                                        <Label FontSize="18"
+                                           Padding="15, 7"
+                                           TextColor="{StaticResource CardBackgroundColor}"
+                                           Text="{Binding Category, TargetNullValue='Goal'}" />
+
+                                    </Border>
+
+                                    <!-- Added a fake percentage text just to keep the UI looking full since we don't have a formatted property right now. An IValueConverter could also be used -->
                                     <Label FontSize="18"
-                                       Padding="15, 7"
-                                       TextColor="{StaticResource CardBackgroundColor}"
-                                       Text="Hobby" />
+                                       HorizontalOptions="End"
+                                       TextColor="{StaticResource OrangeLeafs}"
+                                       Text="{Binding Progress, StringFormat='{0:P0}'}" />
 
-                                </Border>
-
-                                <Label FontSize="18"
-                                   HorizontalOptions="End"
-                                   TextColor="{StaticResource OrangeLeafs}"
-                                   Text="70%" />
-
-                            </StackLayout>
+                                </StackLayout>
+                            </Grid>
                         </Grid>
-                    </Grid>
-                </Border>
-
-                <Border HeightRequest="170" 
-                    StrokeShape="RoundRectangle 20"
-                    StrokeThickness="0"
-                    BackgroundColor="{StaticResource CardBackgroundColor}">
-                    <Border.GestureRecognizers>
-                        <TapGestureRecognizer Tapped="OnGoalTapped" />
-                    </Border.GestureRecognizers>
-
-                    <Grid>
-                        <!-- Main content area -->
-                        <Grid Margin="20,16" 
-                            ColumnDefinitions="*,Auto" 
-                            ColumnSpacing="16">
-
-                            <!-- Content section -->
-                            <StackLayout Grid.Column="0" 
-                               VerticalOptions="Center"
-                               Spacing="4">
-
-                                <Label Text="Exercise 30 Minutes Every Day"
-                                   FontSize="22"
-                                   FontAttributes="Bold"
-                                   TextColor="{StaticResource PrimaryTextColor}"  />
-
-                                <Label Text="2026-10-10"
-                                   FontSize="14"
-                                   TextColor="{StaticResource PrimaryTextColor}"  />
-
-                                <ProgressBar Progress="0.3"
-                                     ProgressColor="{StaticResource OrangeGlow}"
-                                     Margin="0,20"/>
-
-                                <Label Text="Every workout is an investment in your future self."
-                                   FontSize="14"
-                                   TextColor="{StaticResource SecondaryTextColor}"
-                                   LineBreakMode="TailTruncation" />
-
-
-                            </StackLayout>
-
-                            <!-- Action section -->
-                            <StackLayout Grid.Column="1" 
-                                VerticalOptions="Start"
-                                HorizontalOptions="End"
-                                Spacing="8">
-
-                                <Border 
-                                    BackgroundColor="{StaticResource OrangeLeafs}"
-                                    StrokeThickness="0"
-                                    StrokeShape="RoundRectangle 20">
-
-                                    <Label FontSize="18"
-                                       Padding="15, 7"
-                                       TextColor="{StaticResource CardBackgroundColor}"
-                                       Text="Sport" />
-
-                                </Border>
-
-                                <Label FontSize="18"
-                                   HorizontalOptions="End"
-                                   TextColor="{StaticResource OrangeLeafs}"
-                                   Text="30%" />
-
-                            </StackLayout>
-                        </Grid>
-                    </Grid>
-                </Border>
-
-            </VerticalStackLayout>
-        </ScrollView>
+                    </Border>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
 
         <Button Grid.Row="1"
           HorizontalOptions="End"
@@ -160,7 +95,7 @@
           BackgroundColor="{StaticResource CoolTeal}"
           TextColor="{StaticResource CardBackgroundColor}"
           CornerRadius="20"
-          Clicked="OnAddNewGoalClicked" />
+          Command="{Binding GoToAddCommand}" />
 
     </Grid>
 </ContentPage>
