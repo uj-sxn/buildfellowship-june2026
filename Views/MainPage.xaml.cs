@@ -9,10 +9,5 @@ namespace MauiApp1
             InitializeComponent();
             BindingContext = viewModel;
         }
-
-        private void OnGoalTapped(object? sender, TappedEventArgs e)
-        {
-            Console.WriteLine("navigate to its Detail Page");
-        }
     }
 }

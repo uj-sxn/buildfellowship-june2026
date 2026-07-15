@@ -55,7 +55,20 @@ namespace MauiApp1.ViewModels
         [RelayCommand]
         async Task GoToAddAsync()
         {
-            Debug.WriteLine("Go to Add New Goal page");
+            await Shell.Current.GoToAsync(nameof(Views.NewGoalPage));
+        }
+
+        [RelayCommand]
+        async Task GoToDetailAsync(Goal goal)
+        {
+            if (goal is null)
+                return;
+
+            await Shell.Current.GoToAsync(nameof(Views.DetailPage), true,
+                new Dictionary<string, object>
+                {
+                    { "Goal", goal }
+                });
         }
     }
 }
