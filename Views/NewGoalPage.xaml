@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MauiApp1.Views.NewGoalPage"
+             xmlns:viewmodel="clr-namespace:MauiApp1.ViewModels"
+             x:DataType="viewmodel:NewGoalViewModel"
+             Title="New Goal">
+    <VerticalStackLayout Padding="20" Spacing="15">
+
+        <Label Text="Goal Name" FontAttributes="Bold" />
+        <Entry Text="{Binding Name}" Placeholder="e.g. Learn to Play Piano" />
+
+        <Label Text="Motivation" FontAttributes="Bold" />
+        <Entry Text="{Binding Motivation}" Placeholder="e.g. To play for my friends" />
+
+        <Label Text="Category" FontAttributes="Bold" />
+        <Entry Text="{Binding Category}" Placeholder="e.g. Hobby, Health, etc." />
+
+        <Label Text="Target Date" FontAttributes="Bold" />
+        <DatePicker Date="{Binding TargetDate}" />
+
+        <Button Text="Save Goal" 
+                Command="{Binding SaveCommand}" 
+                Margin="0,20,0,0" 
+                BackgroundColor="Teal" 
+                TextColor="White"
+                CornerRadius="8" />
+
+    </VerticalStackLayout>
+</ContentPage>

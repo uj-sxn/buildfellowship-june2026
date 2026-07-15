@@ -21,7 +21,8 @@
                         Margin="0,0,0,10"
                         BackgroundColor="{StaticResource CardBackgroundColor}">
                         <Border.GestureRecognizers>
-                            <TapGestureRecognizer Tapped="OnGoalTapped" />
+                            <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:MainViewModel}}, Path=GoToDetailCommand}"
+                                                  CommandParameter="{Binding .}" />
                         </Border.GestureRecognizers>
 
                         <Grid>

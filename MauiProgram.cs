@@ -25,6 +25,12 @@ namespace MauiApp1
             builder.Services.AddSingleton<MainPage>();
             builder.Services.AddSingleton<MainViewModel>();
 
+            // Transient - New instance every time it is requested
+            builder.Services.AddTransient<DetailPage>();
+            builder.Services.AddTransient<DetailViewModel>();
+            builder.Services.AddTransient<NewGoalPage>();
+            builder.Services.AddTransient<NewGoalViewModel>();
+
             return builder.Build();
         }
     }
