@@ -31,6 +31,9 @@ namespace MauiApp1
             builder.Services.AddTransient<NewGoalPage>();
             builder.Services.AddTransient<NewGoalViewModel>();
 
+            // Register the Data Access Layer pairs
+            builder.Services.AddSingleton<MauiApp1.DAL.IGoalRepository, MauiApp1.DAL.GoalRepository>();
+
             return builder.Build();
         }
     }
