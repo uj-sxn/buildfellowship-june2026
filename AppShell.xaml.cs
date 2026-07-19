@@ -10,6 +10,7 @@ namespace MauiApp1
 
             Routing.RegisterRoute(nameof(DetailPage), typeof(DetailPage));
             Routing.RegisterRoute(nameof(NewGoalPage), typeof(NewGoalPage));
+            Routing.RegisterRoute(nameof(Views.NewGoalPage), typeof(Views.NewGoalPage));
         }
     }
 }
